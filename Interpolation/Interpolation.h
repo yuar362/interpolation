@@ -12,13 +12,12 @@ class IMethod;
 
 class Interpolation
 {
-	bool m_points_saved;
 	std::shared_ptr<IMethod> m_method;	 
 	std::map<float, float> m_reference_points;
 	std::vector<float> m_points_x;
 	std::vector<float> m_points_y;
 private:
-	void createMethod(MehthodEnum method_);
+	std::shared_ptr<IMethod> createMethod(MehthodEnum method_);
 public:
 	Interpolation();
 	Interpolation(MehthodEnum method_);
