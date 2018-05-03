@@ -3,6 +3,7 @@
 
 #include <stdexcept>
 #include <fstream>
+#include<assert.h>
 
 std::shared_ptr<IMethod> Interpolation::createMethod(MehthodEnum method_)
 {
@@ -20,6 +21,8 @@ std::shared_ptr<IMethod> Interpolation::createMethod(MehthodEnum method_)
 		{
 			return std::shared_ptr<IMethod>(new QuadraticMethod());
 		}
+		default:
+			return nullptr;
 	}
 }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -68,6 +71,7 @@ void Interpolation::readPoints(const std::string & file_name_)
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 void Interpolation::calculate()
 {
+	assert(m_method);
 	if (!m_points_x.size())
 	{
 		throw(std::logic_error("There are no points coordinates!"));
@@ -84,10 +88,22 @@ void Interpolation::calculate()
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 void Interpolation::writeData(const std::string & file_name_) const
 {
-	if (!m_points_y.size())
+	size_t y_points_count = m_points_y.size();
+	if (y_points_count || y_points_count != m_points_x.size())
 	{
 		throw(std::logic_error("There is no interpolation!"));
 	}
+
+	std::ofstream fout;
+	fout.exceptions(std::ofstream::failbit | std::ofstream::badbit);
+	fout.open(file_name_);
+	fout << y_points_count;
+	
+	for (size_t i = 0; i < y_points_count; ++i)
+	{
+		fout << m_points_x[i] << ' ' << m_points_y[i];
+	}
+	fout.close();
 }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 void Interpolation::setMethod(MehthodEnum method_)
