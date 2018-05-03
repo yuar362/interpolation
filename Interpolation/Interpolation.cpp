@@ -89,7 +89,7 @@ void Interpolation::calculate()
 void Interpolation::writeData(const std::string & file_name_) const
 {
 	size_t y_points_count = m_points_y.size();
-	if (y_points_count || y_points_count != m_points_x.size())
+	if (!y_points_count || y_points_count != m_points_x.size())
 	{
 		throw(std::logic_error("There is no interpolation!"));
 	}
@@ -97,11 +97,11 @@ void Interpolation::writeData(const std::string & file_name_) const
 	std::ofstream fout;
 	fout.exceptions(std::ofstream::failbit | std::ofstream::badbit);
 	fout.open(file_name_);
-	fout << y_points_count;
+	fout << y_points_count << std::endl;
 	
 	for (size_t i = 0; i < y_points_count; ++i)
 	{
-		fout << m_points_x[i] << ' ' << m_points_y[i];
+		fout << m_points_x[i] << ' ' << m_points_y[i] << std::endl;
 	}
 	fout.close();
 }
