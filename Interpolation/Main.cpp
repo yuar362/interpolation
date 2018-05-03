@@ -29,16 +29,30 @@ int main()
 			break;
 		case '1':
 		{		
-			std::cout << "Enter file name: ";
+			std::cout << " Enter file name: ";
 			std::cin >> file_name;
-			interp.readReferencePoints(file_name);
+			try
+			{
+				interp.readReferencePoints(file_name);
+			}
+			catch (const std::exception& e)
+			{
+				std::cout << e.what() << std::endl;
+			}
 			break;
 		}
 		case '2':
 		{
-			std::cout << "Enter file name: ";
+			std::cout << " Enter file name: ";
 			std::cin >> file_name;
-			interp.readPoints(file_name);
+			try
+			{
+				interp.readPoints(file_name);
+			}
+			catch (const std::exception& e)
+			{
+				std::cout << e.what() << std::endl;
+			}
 			break;
 		}
 		case '3':
@@ -55,7 +69,7 @@ int main()
 		}
 		case '4':
 		{
-			std::cout << "Enter file name: ";
+			std::cout << " Enter file name: ";
 			std::cin >> file_name;
 			try
 			{
