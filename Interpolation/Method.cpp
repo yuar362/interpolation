@@ -105,7 +105,7 @@ void QuadraticMethod::calculate(const std::map<float, float>& reference_points_,
 		float dx20 = it->first - prev_prev->first;
 		float dx10 = prev->first - prev_prev->first;
 		
-		float y = prev_prev->second * dx1 * dx2 / dx20 / dx10 - prev->second * dx0 * dx2 / dx10 / dx21 + it->second * dx2 *dx1 / dx21 / dx20;
+		float y = prev_prev->second * dx1 * dx2 / dx20 / dx10 - prev->second * dx0 * dx2 / dx10 / dx21 + it->second * dx0 *dx1 / dx21 / dx20;
 		points_y_.push_back(y);
 	}
 }
